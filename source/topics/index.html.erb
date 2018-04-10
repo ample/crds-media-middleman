@@ -1,0 +1,10 @@
+<h1>Topics</h1>
+
+<% data.contentful.categories.each do |category_id, category| %>
+  <h1>
+    <%= link_to category.name, category_path(category) %>
+  </h1>
+  <p>
+    <%= data.contentful.posts.select { |_, post| post.category.id == category_id }.size %> articles
+  </p>
+<% end %>

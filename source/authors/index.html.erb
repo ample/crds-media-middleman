@@ -1,0 +1,10 @@
+<h1>Authors</h1>
+
+<% data.contentful.authors.each do |author_id, author| %>
+  <h1>
+    <%= link_to author.name, author_path(author) %>
+  </h1>
+  <p>
+    <%= data.contentful.posts.select { |_, post| post.author.id == author_id }.size %> articles
+  </p>
+<% end %>
