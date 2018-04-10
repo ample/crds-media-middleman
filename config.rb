@@ -61,6 +61,14 @@ helpers do
     "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}/"
   end
 
+  def author_path(author)
+    "/authors/#{author.slug}/"
+  end
+
+  def category_path(category)
+    "/topics/#{category.slug}/"
+  end
+
   def markdown(text)
     Kramdown::Document.new(text).to_html
   end

@@ -1,5 +1,5 @@
 <h1>
-  <%= post.name %>
+  <%= link_to post.name, post_path(post) %>
 </h1>
 
 <p>
@@ -9,5 +9,3 @@
 <p>
   <%= link_to post.category.name, category_path(post.category) %>
 </p>
-
-<%= markdown post.body %>

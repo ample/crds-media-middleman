@@ -3,7 +3,6 @@ title: CRDS Media
 ---
 
 <% data.contentful.posts.each do |_, post| %>
-  <h1>
-    <%= link_to post.name, post_path(post) %>
-  </h1>
+  <%= partial 'partials/post_card', locals: { post: post } %>
+  <hr>
 <% end %>

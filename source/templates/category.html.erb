@@ -1,1 +1,5 @@
-<h1><%= category.name %></h1>
+<h1><%= category.name %> Posts</h1>
+
+<% data.contentful.posts.select { |_, post| post.category.id == category.id }.each do |_, post| %>
+  <%= partial 'partials/post_card', locals: { post: post } %>
+<% end %>
