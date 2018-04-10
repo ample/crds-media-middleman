@@ -2,4 +2,8 @@
 title: CRDS Media
 ---
 
-Hello world ...
+<% data.contentful.posts.each do |_, post| %>
+  <h1>
+    <%= link_to post.name, post_path(post) %>
+  </h1>
+<% end %>

@@ -30,16 +30,16 @@ page '/*.txt', layout: false
 
 data.contentful.posts.each do |_, post|
   date = post.published_date
-  path = "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}.html"
+  path = "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}/index.html"
   proxy path, "/templates/post.html", locals: { post: post }, ignore: true
 end
 
 data.contentful.authors.each do |_, author|
-  proxy "/authors/#{author.slug}.html", "/templates/author.html", locals: { author: author }, ignore: true
+  proxy "/authors/#{author.slug}/index.html", "/templates/author.html", locals: { author: author }, ignore: true
 end
 
 data.contentful.categories.each do |_, category|
-  proxy "/topics/#{category.slug}.html", "/templates/category.html", locals: { category: category }, ignore: true
+  proxy "/topics/#{category.slug}/index.html", "/templates/category.html", locals: { category: category }, ignore: true
 end
 
 # proxy(
@@ -54,11 +54,18 @@ end
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
 
-# helpers do
-#   def some_helper
-#     'Helping'
-#   end
-# end
+helpers do
+
+  def post_path(post)
+    date = post.published_date
+    "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}/"
+  end
+
+  def markdown(text)
+    Kramdown::Document.new(text).to_html
+  end
+
+end
 
 # Build-specific configuration
 # https://middlemanapp.com/advanced/configuration/#environment-specific-settings
