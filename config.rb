@@ -32,7 +32,7 @@ data.contentful.authors.each do |_, author|
 end
 
 data.contentful.categories.each do |_, category|
-  proxy "/topics/#{category.slug}/index.html", "/templates/category.html", locals: { category: category }, ignore: true
+  proxy "/categories/#{category.slug}/index.html", "/templates/category.html", locals: { category: category }, ignore: true
 end
 
 # ---------------------------------------- | Helpers
@@ -49,7 +49,7 @@ helpers do
   end
 
   def category_path(category)
-    "/topics/#{category.slug}/"
+    "/categories/#{category.slug}/"
   end
 
   def markdown(text)
