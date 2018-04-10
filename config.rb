@@ -1,8 +1,17 @@
+require 'dotenv/load'
+
 # Activate and configure extensions
 # https://middlemanapp.com/advanced/configuration/#configuring-extensions
 
 activate :autoprefixer do |prefix|
   prefix.browsers = "last 2 versions"
+end
+
+activate :contentful do |f|
+  f.space         = { contentful: '6xtqh9zzbhsk'}
+  f.access_token  = ENV['CONTENTFUL_ACCESS_TOKEN']
+  f.cda_query     = { limit: 1000 }
+  f.content_types = { post: 'post', category: 'category', author: 'authors' }
 end
 
 # Layouts
