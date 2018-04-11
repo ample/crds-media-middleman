@@ -1,0 +1,18 @@
+.media--author {
+  a {
+    color: inherit;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  .img-circle {
+    min-width: 5rem;
+    min-height: 5rem;
+  }
+
+  .media-body {
+    font-size: 1rem;
+  }
+}
