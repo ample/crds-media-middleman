@@ -1,13 +1,61 @@
-<h1>
-  <%= post.name %>
-</h1>
+<div class="article_header push-top">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2">
+      <h5 class="article_meta metadata flush">
+        <%= read_time(post) %>
+      </h5>
+      <h2 class="article_title section-header flush-top push-half-bottom">
+        <%= post.name %>
+      </h2>
+      <div>
+        <a href="{{ post.author.url }}"><%= post.author.name %></a> |
+        <span class="article_date">
+          <%= post.published_date.strftime('%b %-d, %Y') %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <%= link_to post.author.name, author_path(post.author) %>
-</p>
+<article class="article font-family-base">
+  <div class="article_hero push-ends" style="background-image: url('<%= post.featured_image.url %>')">
+    <span class="article_heroCaption text-center block push-half-top push-bottom">
+      <%= post.featured_image.title %>
+    </span>
+  </div>
+  <div class="container soft-top">
+    <div class="article_share col-md-2 push-bottom">
+      <div class="push-bottom">
+        <h5 class="control-label">Share</h5>
+        <div class="addthis_sharing_toolbox"></div>
+      </div>
+      <!-- Tags Go Here -->
+    </div>
+    <div class="article_body col-md-8 font-size-base" id="scrollDistance">
+      <%= markdown post.body %>
 
-<p>
-  <%= link_to post.category.name, category_path(post.category) %>
-</p>
+      <div class="media media--author push-bottom">
+        <div class="media-img-wrapper" style="align-items: center;">
+          <a href="<%= author_path(post.author) %>">
+            <img class="media-object-default img-circle" src="<%= post.author.profile_image.url %>" />
+          </a>
+        </div>
+        <div class="media-body" style="max-width: 640px;">
+          <a href="<%= author_path(post.author) %>">
+            <h2 class="component-header push-quarter-ends"><%= post.author.name %></h2>
+            <%= markdown post.author.bio %>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
 
-<%= markdown post.body %>
+<div class="container">
+  <h2 class="collection-header push-bottom">recent articles</h2>
+  <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
+    <% posts_by_date(except: post, limit: 4).each do |_, post| %>
+      <%= partial 'partials/post_card', locals: { post: post } %>
+    <% end %>
+  </div>
+</div>

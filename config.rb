@@ -102,8 +102,10 @@ helpers do
 
   # --- Posts ---
 
-  def posts_by_date
-    data.contentful.posts.to_a.sort_by { |p| p.last.published_date }.reverse
+  def posts_by_date(options = {})
+    posts = data.contentful.posts.to_a.sort_by { |p| p.last.published_date }.reverse
+    posts = posts.reject { |p| p.last.id == options[:except].id } if options[:except]
+    options[:limit] ? posts.first(options[:limit]) : posts
   end
 
   def read_time(post)
