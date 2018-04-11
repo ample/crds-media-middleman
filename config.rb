@@ -2,15 +2,11 @@ require 'dotenv/load'
 require 'active_support/core_ext/array'
 require 'lib/middleman_extensions'
 
-# require 'pry'
-
 POSTS_PER_PAGE = 16
 
 # ---------------------------------------- | Extensions
 
 activate :contentful_model
-
-# binding.pry
 
 activate :autoprefixer do |prefix|
   prefix.browsers = "last 2 versions"
