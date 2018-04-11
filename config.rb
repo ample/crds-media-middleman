@@ -3,6 +3,8 @@ require 'active_support/core_ext/array'
 
 POSTS_PER_PAGE = 16
 
+POSTS_BY_DATE = data.contentful.posts.to_a.sort_by { |p| p.last.published_date }.reverse
+
 # ---------------------------------------- | Extensions
 
 activate :autoprefixer do |prefix|
@@ -24,13 +26,13 @@ page '/*.txt', layout: false
 
 # ---------------------------------------- | Dynamic Pages
 
-data.contentful.posts.each do |_, post|
+POSTS_BY_DATE.each do |_, post|
   date = post.published_date
   path = "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}/index.html"
   proxy path, "/templates/post.html", locals: { post: post }, ignore: true
 end
 
-data.contentful.posts.to_a.in_groups_of(POSTS_PER_PAGE).each_with_index do |posts, idx|
+POSTS_BY_DATE.in_groups_of(POSTS_PER_PAGE).each_with_index do |posts, idx|
   proxy "/page/#{idx + 1}/index.html", "/templates/posts_page.html", locals: { page_num: idx + 1, posts: posts }, ignore: true
 end
 
@@ -99,6 +101,10 @@ helpers do
   end
 
   # --- Posts ---
+
+  def posts_by_date
+    data.contentful.posts.to_a.sort_by { |p| p.last.published_date }.reverse
+  end
 
   def read_time(post)
     "#{(post.body.split.size.to_f / 184).ceil} min read"

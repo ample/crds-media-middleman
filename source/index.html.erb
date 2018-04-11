@@ -13,9 +13,8 @@ subheading: with short articles about everyday life
 
 <div class="container">
   <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
-    <% data.contentful.posts.first(posts_per_page).each do |_, post| %>
+    <% posts_by_date.first(posts_per_page).each do |_, post| %>
       <%= partial 'partials/post_card', locals: { post: post } %>
-      <hr>
     <% end %>
   </div>
   <%= pagination_links %>
