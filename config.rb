@@ -116,6 +116,10 @@ helpers do
     posts_by_date.select { |_, post| post.author.id == author.id }
   end
 
+  def posts_in_category(category)
+    posts_by_date.select { |_, post| post.category.id == category.id }
+  end
+
 end
 
 # ---------------------------------------- | Build Settings
