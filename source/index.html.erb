@@ -1,10 +1,22 @@
 ---
 title: CRDS Media
+heading: Get Inspired, Challenged, And Encouraged
+subheading: with short articles about everyday life
 ---
 
-<% data.contentful.posts.first(posts_per_page).each do |_, post| %>
-  <%= partial 'partials/post_card', locals: { post: post } %>
-  <hr>
-<% end %>
+<div class="jumbotron bg-blue">
+  <div class="container">
+    <h1 class="section-header text-white"><%= current_page.data.heading %></h1>
+    <p class="cd_subheading"><%= current_page.data.subheading %></p>
+  </div>
+</div>
 
-<%= pagination_links %>
+<div class="container">
+  <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
+    <% data.contentful.posts.first(posts_per_page).each do |_, post| %>
+      <%= partial 'partials/post_card', locals: { post: post } %>
+      <hr>
+    <% end %>
+  </div>
+  <%= pagination_links %>
+</div>

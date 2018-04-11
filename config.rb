@@ -1,7 +1,7 @@
 require 'dotenv/load'
 require 'active_support/core_ext/array'
 
-POSTS_PER_PAGE = 2
+POSTS_PER_PAGE = 16
 
 # ---------------------------------------- | Extensions
 
@@ -46,6 +46,8 @@ end
 
 helpers do
 
+  # --- Routes ---
+
   def post_path(post)
     date = post.published_date
     "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}/"
@@ -63,9 +65,13 @@ helpers do
     "/page/#{page_num}/"
   end
 
+  # --- Rendering ---
+
   def markdown(text)
     Kramdown::Document.new(text).to_html
   end
+
+  # --- Pagination ---
 
   def posts_per_page
     POSTS_PER_PAGE
@@ -74,6 +80,7 @@ helpers do
   def pagination_links(current_page = 1)
     total_posts = data.contentful.posts.size
     total_pages = (total_posts.to_f / POSTS_PER_PAGE).ceil
+    return unless total_pages > 1
     page_nums = (current_page - 2 .. current_page + 2).to_a.reject { |i| i <= 0 || i > total_pages }
     partial 'partials/pagination', locals: {
       current_page: current_page,
@@ -81,6 +88,20 @@ helpers do
       prev_link: current_page > 1,
       next_link: current_page < total_pages
     }
+  end
+
+  # --- Meta ---
+
+  def page_title
+    return current_page.metadata[:locals][:title] if current_page.metadata[:locals][:title]
+    return current_page.data.title if current_page.data.title
+    data.settings.title
+  end
+
+  # --- Posts ---
+
+  def read_time(post)
+    "#{(post.body.split.size.to_f / 184).ceil} min read"
   end
 
 end

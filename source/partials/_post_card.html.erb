@@ -1,11 +1,21 @@
-<h1>
-  <%= link_to post.name, post_path(post) %>
-</h1>
-
-<p>
-  <%= link_to post.author.name, author_path(post.author) %>
-</p>
-
-<p>
-  <%= link_to post.category.name, category_path(post.category) %>
-</p>
+<div class="card card--layered">
+  <a href="<%= post_path(post) %>">
+    <div class="card-bgImage sixteen-nine" style="background-image: url('<%= post.featured_image.try(:url) %>');"></div>
+    <div class="card-block">
+      <h5 class="card-meta metadata push-quarter-ends">
+        <a href="<%= category_path(post.category) %>"><%= post.category.name %></a>
+        &nbsp;-&nbsp;
+        <%= read_time(post) %>
+      </h5>
+      <a href="<%= post_path(post) %>">
+        <h4 class="card-title font-family-condensed-extra text-uppercase"><%= post.name %></h4>
+      </a>
+      <p class="card-text">
+        <a href="<%= author_path(post.author) %>"><%= post.author.name %></a> |
+        <span class="card-date">
+          <%= post.published_date.strftime('%b %-d, %Y') %>
+        </span>
+      </p>
+    </div>
+  </a>
+</div>
