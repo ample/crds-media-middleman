@@ -164,6 +164,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   contentful_middleman
   dotenv-rails
   middleman (~> 4.2)

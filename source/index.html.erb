@@ -2,7 +2,9 @@
 title: CRDS Media
 ---
 
-<% data.contentful.posts.each do |_, post| %>
+<% data.contentful.posts.first(posts_per_page).each do |_, post| %>
   <%= partial 'partials/post_card', locals: { post: post } %>
   <hr>
 <% end %>
+
+<%= pagination_links %>

@@ -1,0 +1,9 @@
+<h1>
+  Page #<%= page_num %>
+</h1>
+
+<% posts.each do |_, post| %>
+  <%= partial 'partials/post_card', locals: { post: post } %>
+<% end %>
+
+<%= pagination_links(page_num) %>

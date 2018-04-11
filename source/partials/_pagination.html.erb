@@ -1,0 +1,25 @@
+<nav>
+  <ul class="pagination">
+    <% if prev_link %>
+      <li>
+        <a href="<%= post_page_path(current_page - 1) %>" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    <% end %>
+
+    <% page_nums.each do |idx| %>
+      <li class="<%= 'active' if idx == current_page %>">
+        <a href="<%= post_page_path(idx) %>"><%= idx %></a>
+      </li>
+    <% end %>
+
+    <% if next_link %>
+      <li>
+        <a href="<%= post_page_path(current_page + 1) %>" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</nav>
