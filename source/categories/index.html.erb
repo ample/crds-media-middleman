@@ -1,17 +1,16 @@
 <div class="container">
   <h2 class="section-header">Topics</h2>
   <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
-    <% data.contentful.categories.each do |_, category| %>
+    <% Category.order(:name).each do |category| %>
       <div class="card card--layered">
         <a href="<%= category_path(category) %>">
-          <div class="card-bgImage sixteen-nine bgCenter" style="background-image: url('<%= posts_in_category(category).collect { |p| p.last.featured_image.try(:url) }.reject(&:blank?).first %>');"></div>
+          <div class="card-bgImage sixteen-nine bgCenter" style="background-image: url('<%= category.featured_image.try(:url) %>');"></div>
           <div class="card-block">
             <h4 class="card-title font-family-condensed-extra text-uppercase">
               <%= category.name %>
             </h4>
             <h5 class="card-subtitle">
-              <%= posts_in_category(category).size %>
-              <%= 'article'.pluralize(posts_in_category(category).size) %>
+              <%= category.posts.size %> <%= 'article'.pluralize(category.posts.size) %>
             </h5>
           </div>
         </a>

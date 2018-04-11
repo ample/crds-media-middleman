@@ -1,7 +1,7 @@
 <div class="container">
   <%= partial 'partials/author', locals: { author: author } %>
   <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
-    <% posts_for_author(author).each do |_, post| %>
+    <% author.posts.order(:published_date, :desc).each do |post| %>
       <%= partial 'partials/post_card', locals: { post: post } %>
     <% end %>
   </div>

@@ -13,7 +13,7 @@ subheading: with short articles about everyday life
 
 <div class="container">
   <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
-    <% posts_by_date(limit: posts_per_page).each do |_, post| %>
+    <% Post.by_published_date.limit(posts_per_page).each do |post| %>
       <%= partial 'partials/post_card', locals: { post: post } %>
     <% end %>
   </div>

@@ -2,7 +2,7 @@
   Page #<%= page_num %>
 </h1>
 
-<% posts.each do |_, post| %>
+<% posts.each do |post| %>
   <%= partial 'partials/post_card', locals: { post: post } %>
 <% end %>
 

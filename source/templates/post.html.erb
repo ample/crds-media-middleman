@@ -2,7 +2,7 @@
   <div class="container">
     <div class="col-md-8 col-md-offset-2">
       <h5 class="article_meta metadata flush">
-        <%= read_time(post) %>
+        <%= post.read_time %>
       </h5>
       <h2 class="article_title section-header flush-top push-half-bottom">
         <%= post.name %>
@@ -18,7 +18,7 @@
 </div>
 
 <article class="article font-family-base">
-  <div class="article_hero push-ends" style="background-image: url('<%= post.featured_image.url %>')">
+  <div class="article_hero push-ends" style="background-image: url('<%= post.try(:featured_image).try(:url) %>')">
     <span class="article_heroCaption text-center block push-half-top push-bottom">
       <%= post.featured_image.title %>
     </span>
@@ -40,7 +40,7 @@
 <div class="container">
   <h2 class="collection-header push-bottom">recent articles</h2>
   <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
-    <% posts_by_date(except: post, limit: 4).each do |_, post| %>
+    <% Post.recent(limit: 4, exclude: post).each do |post| %>
       <%= partial 'partials/post_card', locals: { post: post } %>
     <% end %>
   </div>

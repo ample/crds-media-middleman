@@ -1,11 +1,11 @@
 <div class="media media--author push-bottom">
   <div class="media-img-wrapper" style="align-items: center;">
-    <a href="<%= author_path(author) %>">
+    <a href="<%= author.path %>">
       <img class="media-object-default img-circle" src="<%= author.profile_image.url %>">
     </a>
   </div>
   <div class="media-body" style="max-width: 640px;">
-    <a href="<%= author_path(author) %>">
+    <a href="<%= author.path %>">
       <h2 class="component-header push-quarter-ends">
         <%= author.name %>
       </h2>

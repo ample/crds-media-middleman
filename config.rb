@@ -1,11 +1,16 @@
 require 'dotenv/load'
 require 'active_support/core_ext/array'
+require 'lib/middleman_extensions'
+
+# require 'pry'
 
 POSTS_PER_PAGE = 16
 
-POSTS_BY_DATE = data.contentful.posts.to_a.sort_by { |p| p.last.published_date }.reverse
-
 # ---------------------------------------- | Extensions
+
+activate :contentful_model
+
+# binding.pry
 
 activate :autoprefixer do |prefix|
   prefix.browsers = "last 2 versions"
@@ -26,21 +31,21 @@ page '/*.txt', layout: false
 
 # ---------------------------------------- | Dynamic Pages
 
-POSTS_BY_DATE.each do |_, post|
+Post.by_published_date.each do |post|
   date = post.published_date
   path = "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}/index.html"
   proxy path, "/templates/post.html", locals: { post: post }, ignore: true
 end
 
-POSTS_BY_DATE.in_groups_of(POSTS_PER_PAGE).each_with_index do |posts, idx|
+Post.by_published_date.in_groups_of(POSTS_PER_PAGE).each_with_index do |posts, idx|
   proxy "/page/#{idx + 1}/index.html", "/templates/posts_page.html", locals: { page_num: idx + 1, posts: posts }, ignore: true
 end
 
-data.contentful.authors.each do |_, author|
+Author.all.each do |author|
   proxy "/authors/#{author.slug}/index.html", "/templates/author.html", locals: { author: author }, ignore: true
 end
 
-data.contentful.categories.each do |_, category|
+Category.all.each do |category|
   proxy "/categories/#{category.slug}/index.html", "/templates/category.html", locals: { category: category }, ignore: true
 end
 
@@ -49,15 +54,6 @@ end
 helpers do
 
   # --- Routes ---
-
-  def post_path(post)
-    date = post.published_date
-    "/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}/"
-  end
-
-  def author_path(author)
-    "/authors/#{author.slug}/"
-  end
 
   def category_path(category)
     "/categories/#{category.slug}/"
@@ -98,26 +94,6 @@ helpers do
     return current_page.metadata[:locals][:title] if current_page.metadata[:locals][:title]
     return current_page.data.title if current_page.data.title
     data.settings.title
-  end
-
-  # --- Posts ---
-
-  def posts_by_date(options = {})
-    posts = data.contentful.posts.to_a.sort_by { |p| p.last.published_date }.reverse
-    posts = posts.reject { |p| p.last.id == options[:except].id } if options[:except]
-    options[:limit] ? posts.first(options[:limit]) : posts
-  end
-
-  def read_time(post)
-    "#{(post.body.split.size.to_f / 184).ceil} min read"
-  end
-
-  def posts_for_author(author)
-    posts_by_date.select { |_, post| post.author.id == author.id }
-  end
-
-  def posts_in_category(category)
-    posts_by_date.select { |_, post| post.category.id == category.id }
   end
 
 end

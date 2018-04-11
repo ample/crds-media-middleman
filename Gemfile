@@ -6,6 +6,7 @@ gem 'middleman-autoprefixer', '~> 2.7'
 gem 'activesupport'
 gem 'contentful_middleman'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'pry'
 
 gem 'tzinfo-data', platforms: [:mswin, :mingw, :jruby]
 gem 'wdm', '~> 0.1', platforms: [:mswin, :mingw]

@@ -3,7 +3,7 @@
     <%= category.name %>
   </h2>
   <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
-    <% posts_in_category(category).each do |_, post| %>
+    <% category.posts.order(:published_date, :desc).each do |post| %>
       <%= partial 'partials/post_card', locals: { post: post } %>
     <% end %>
   </div>
