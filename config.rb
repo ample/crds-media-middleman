@@ -112,6 +112,10 @@ helpers do
     "#{(post.body.split.size.to_f / 184).ceil} min read"
   end
 
+  def posts_for_author(author)
+    posts_by_date.select { |_, post| post.author.id == author.id }
+  end
+
 end
 
 # ---------------------------------------- | Build Settings

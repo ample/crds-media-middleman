@@ -1,10 +1,21 @@
-<h1>Authors</h1>
-
-<% data.contentful.authors.each do |author_id, author| %>
-  <h1>
-    <%= link_to author.name, author_path(author) %>
-  </h1>
-  <p>
-    <%= data.contentful.posts.select { |_, post| post.author.id == author_id }.size %> articles
-  </p>
-<% end %>
+<div class="container">
+  <h2 class="section-header">Authors</h2>
+  <div data-card-deck class="card-deck card-deck--expanded-layout card-deck--wrap">
+    <% data.contentful.authors.each do |_, author| %>
+      <div class="card card--layered">
+        <a href="<%= author_path(author) %>">
+          <div class="card-bgImage sixteen-nine" style="background-image: url('<%= author.profile_image.url %>');"></div>
+          <div class="card-block">
+            <h4 class="card-title text-uppercase font-family-condensed-extra">
+              <%= author.name %>
+            </h4>
+            <h5 class="card-subtitle">
+              <%= posts_for_author(author).size %>
+              <%= 'article'.pluralize(posts_for_author(author).size) %>
+            </h5>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>

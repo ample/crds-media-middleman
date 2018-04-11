@@ -33,21 +33,7 @@
     </div>
     <div class="article_body col-md-8 font-size-base" id="scrollDistance">
       <%= markdown post.body %>
-
-      <div class="media media--author push-bottom">
-        <div class="media-img-wrapper" style="align-items: center;">
-          <a href="<%= author_path(post.author) %>">
-            <img class="media-object-default img-circle" src="<%= post.author.profile_image.url %>" />
-          </a>
-        </div>
-        <div class="media-body" style="max-width: 640px;">
-          <a href="<%= author_path(post.author) %>">
-            <h2 class="component-header push-quarter-ends"><%= post.author.name %></h2>
-            <%= markdown post.author.bio %>
-          </a>
-        </div>
-      </div>
-    </div>
+      <%= partial 'partials/author', locals: { author: post.author } %>
   </div>
 </article>
 
