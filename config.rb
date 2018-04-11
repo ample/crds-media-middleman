@@ -51,10 +51,6 @@ helpers do
 
   # --- Routes ---
 
-  def category_path(category)
-    "/categories/#{category.slug}/"
-  end
-
   def post_page_path(page_num)
     "/page/#{page_num}/"
   end

@@ -3,7 +3,7 @@
     <div class="card-bgImage sixteen-nine" style="background-image: url('<%= post.try(:featured_image).try(:url) %>');"></div>
     <div class="card-block">
       <h5 class="card-meta metadata push-quarter-ends">
-        <a href="<%= category_path(post.category) %>"><%= post.category.name %></a>
+        <a href="<%= post.category.path %>"><%= post.category.name %></a>
         &nbsp;-&nbsp;
         <%= post.read_time %>
       </h5>
