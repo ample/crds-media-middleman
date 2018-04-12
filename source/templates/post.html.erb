@@ -8,7 +8,7 @@
         <%= post.name %>
       </h2>
       <div>
-        <a href="{{ post.author.url }}"><%= post.author.name %></a> |
+        <a href="<%= post.author.path %>"><%= post.author.name %></a> |
         <span class="article_date">
           <%= post.published_date.strftime('%b %-d, %Y') %>
         </span>
